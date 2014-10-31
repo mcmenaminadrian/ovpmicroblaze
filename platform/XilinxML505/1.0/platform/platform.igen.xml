@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <hw enableintercepts="F"
+    library="platform"
+    name="XilinxML505"
+    stoponctrlc="F"
+    vendor="xilinx.ovpworld.org"
+    verbose="F"
+    version="1.0">
+    <documentation name="Description">Xilinx ML505 Reference Platform</documentation>
+    <documentation name="Licensing">Open Source Apache 2.0</documentation>
+    <documentation name="Limitations">This platform provides a subset of the full platform functionality. It is provided to boot the Linux operating system.
+           Other software may be used but the operation cannot be guaranteed.</documentation>
+    <processorinstance endian="big"
+        mips="125.000000"
+        name="microblaze_0"
+        simulateexceptions="T">
+        <vlnvreference name="microblaze"/>
+        <netportconnection connection="Interrupt_net"
+            name="Interrupt"/>
+        <attribute content="3"
+            name="C_USE_MMU"/>
+        <attribute content="2"
+            name="C_MMU_ITLB_SIZE"/>
+        <attribute content="4"
+            name="C_MMU_DTLB_SIZE"/>
+        <attribute content="3"
+            name="C_MMU_TLB_ACCESS"/>
+        <attribute content="16"
+            name="C_MMU_ZONES"/>
+        <attribute content="1"
+            name="C_USE_EXTENDED_FSL_INSTR"/>
+        <attribute content="1"
+            name="C_FSL_EXCEPTION"/>
+        <attribute content="2"
+            name="C_USE_HW_MUL"/>
+        <attribute content="2"
+            name="C_PVR"/>
+        <attribute content="1"
+            name="C_OPCODE_0x0_ILLEGAL"/>
+        <attribute content="1"
+            name="C_FPU_EXCEPTION"/>
+        <attribute content="1"
+            name="C_UNALIGNED_EXCEPTIONS"/>
+        <attribute content="1"
+            name="C_ILL_OPCODE_EXCEPTION"/>
+        <attribute content="1"
+            name="C_DIV_ZERO_EXCEPTION"/>
+        <attribute content="1"
+            name="C_INTERCONNECT"/>
+        <attribute content="1"
+            name="C_USE_BARREL"/>
+        <attribute content="1"
+            name="C_USE_DIV"/>
+        <attribute content="4"
+            name="C_FSL_LINKS"/>
+        <attribute content="1"
+            name="C_DEBUG_ENABLED"/>
+        <attribute content="1"
+            name="C_I_LMB"/>
+        <attribute content="1"
+            name="C_D_LMB"/>
+        <attribute content="2"
+            name="C_USE_FPU"/>
+        <attribute content="1"
+            name="C_USE_MSR_INSTR"/>
+        <attribute content="1"
+            name="C_USE_PCMP_INSTR"/>
+        <attribute content="12"
+            name="C_FAMILY"/>
+        <busmasterportconnection connection="bus1"
+            hiaddress="0xffffffff"
+            name="INSTRUCTION"/>
+        <busmasterportconnection connection="bus1"
+            hiaddress="0xffffffff"
+            name="DATA"/>
+    </processorinstance>
+    <bus addresswidth="32"
+        name="bus1"/>
+    <memoryinstance name="BOOTMEM">
+        <vlnvreference name="ram"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0x1ffffff"
+            loaddress="0x0"
+            name="sp1"/>
+    </memoryinstance>
+    <memoryinstance name="DDR2_SDRAM">
+        <vlnvreference name="ram"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0x9fffffff"
+            loaddress="0x90000000"
+            name="sp1"/>
+    </memoryinstance>
+    <memoryinstance name="UNKNOWN_PERIPH">
+        <vlnvreference name="ram"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0x8fffffff"
+            loaddress="0x8ffff000"
+            name="sp1"/>
+    </memoryinstance>
+    <peripheralinstance name="LEDs_8Bit">
+        <vlnvreference name="xps-gpio"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0x8140ffff"
+            loaddress="0x81400000"
+            name="plb"/>
+    </peripheralinstance>
+    <peripheralinstance name="IIC_EEPROM">
+        <vlnvreference name="xps-iic"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0x8160ffff"
+            loaddress="0x81600000"
+            name="plb"/>
+    </peripheralinstance>
+    <peripheralinstance name="xps_intc_0">
+        <vlnvreference name="xps-intc"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0x8180001f"
+            loaddress="0x81800000"
+            name="plb"/>
+        <netportconnection connection="Interrupt_net"
+            name="Irq"/>
+        <netportconnection connection="Interrupt_3"
+            name="Intr3"/>
+        <netportconnection connection="Interrupt_8"
+            name="Intr8"/>
+    </peripheralinstance>
+    <peripheralinstance name="Hard_Ethernet_MAC">
+        <vlnvreference name="xps-ll-temac"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0x81c0003f"
+            loaddress="0x81c00000"
+            name="plb"/>
+    </peripheralinstance>
+    <peripheralinstance name="SysACE_CompactFlash">
+        <vlnvreference name="xps-sysace"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0x8360ffff"
+            loaddress="0x83600000"
+            name="plb"/>
+    </peripheralinstance>
+    <peripheralinstance name="xps_timer_1">
+        <vlnvreference name="xps-timer"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0x83c0001f"
+            loaddress="0x83c00000"
+            name="plb"/>
+        <netportconnection connection="Interrupt_3"
+            name="Interrupt"/>
+    </peripheralinstance>
+    <peripheralinstance name="RS232_Uart_1">
+        <vlnvreference name="xps-uartlite"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0x8400000f"
+            loaddress="0x84000000"
+            name="plb"/>
+        <netportconnection connection="Interrupt_8"
+            name="Interrupt"/>
+        <attribute name="portnum"/>
+        <attribute name="console"/>
+        <attribute name="infile"/>
+        <attribute name="outfile"/>
+        <attribute content="1"
+            name="finishOnDisconnect"/>
+    </peripheralinstance>
+    <peripheralinstance name="debug_module">
+        <vlnvreference name="mdm"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0x8440ffff"
+            loaddress="0x84400000"
+            name="plb"/>
+    </peripheralinstance>
+    <peripheralinstance name="mpmc">
+        <vlnvreference name="mpmc"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0x846001ff"
+            loaddress="0x84600180"
+            name="plb"/>
+    </peripheralinstance>
+    <peripheralinstance name="mb_plb">
+        <vlnvreference name="xps-mch-emc"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0xa1ffffff"
+            loaddress="0xa0000000"
+            name="plb"/>
+    </peripheralinstance>
+    <nets name="nets">
+        <net name="Interrupt_net"/>
+        <net name="Interrupt_3"/>
+        <net name="Interrupt_8"/>
+    </nets>
+    <fileversion major="1"
+        minor="0"
+        name="_version_0"/>
+ </hw>

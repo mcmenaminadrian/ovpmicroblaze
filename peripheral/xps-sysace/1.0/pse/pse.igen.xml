@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <peripheral constructor="constructor"
+    destructor="destructor"
+    imagefile="pse.pse"
+    library="peripheral"
+    name="xps-sysace"
+    vendor="xilinx.ovpworld.org"
+    version="1.0">
+    <documentation name="Description">Microblaze LogiCORE SYSACE Interface Controller</documentation>
+    <documentation name="Licensing">Open Source Apache 2.0</documentation>
+    <documentation name="Limitations">This model implements the registers but has no functional behavior</documentation>
+    <busslaveport addresswidth="32"
+        mustbeconnected="T"
+        name="plb"
+        size="0x10000">
+        <addressblock name="REG"
+            size="0x10000"
+            width="32">
+            <localmemory name="buffer"
+                readfunction="readMemCB"
+                size="0x10000"
+                writefunction="writeMemCB"/>
+        </addressblock>
+    </busslaveport>
+    <netport name="Interrupt"
+        type="output"
+        updatefunctionargument="0"/>
+    <fileversion major="1"
+        minor="0"
+        name="_version_0"/>
+ </peripheral>

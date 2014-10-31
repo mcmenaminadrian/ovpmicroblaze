@@ -1,0 +1,88 @@
+/*
+ * Copyright (c) 2005-2014 Imperas Software Ltd., www.imperas.com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied.
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//                W R I T T E N   B Y   I M P E R A S   I G E N
+//
+//                             Version 20140731.0
+//                          Mon Aug  4 13:35:18 2014
+//
+////////////////////////////////////////////////////////////////////////////////
+
+#include "pse.igen.h"
+//////////////////////////////// Callback stubs ////////////////////////////////
+
+PPM_REG_READ_CB(ReadTCR0) {
+    // YOUR CODE HERE (ReadTCR0)
+    return 0;
+}
+
+PPM_REG_READ_CB(ReadTCR1) {
+    // YOUR CODE HERE (ReadTCR1)
+    return 0;
+}
+
+PPM_REG_READ_CB(ReadTCSR0) {
+    // YOUR CODE HERE (ReadTCSR0)
+    return 0;
+}
+
+PPM_REG_READ_CB(ReadTCSR1) {
+    // YOUR CODE HERE (ReadTCSR1)
+    return 0;
+}
+
+PPM_REG_READ_CB(ReadTLR0) {
+    // YOUR CODE HERE (ReadTLR0)
+    return 0;
+}
+
+PPM_REG_READ_CB(ReadTLR1) {
+    // YOUR CODE HERE (ReadTLR1)
+    return 0;
+}
+
+PPM_REG_WRITE_CB(WriteTCSR0) {
+    // YOUR CODE HERE (WriteTCSR0)
+}
+
+PPM_REG_WRITE_CB(WriteTCSR1) {
+    // YOUR CODE HERE (WriteTCSR1)
+}
+
+PPM_REG_WRITE_CB(WriteTLR0) {
+    // YOUR CODE HERE (WriteTLR0)
+}
+
+PPM_REG_WRITE_CB(WriteTLR1) {
+    // YOUR CODE HERE (WriteTLR1)
+}
+
+PPM_CONSTRUCTOR_CB(constructor) {
+    // YOUR CODE HERE (pre constructor)
+    periphConstructor();
+    // YOUR CODE HERE (post constructor)
+}
+
+PPM_DESTRUCTOR_CB(destructor) {
+    // YOUR CODE HERE (destructor)
+}
+

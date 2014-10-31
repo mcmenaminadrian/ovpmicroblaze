@@ -1,0 +1,101 @@
+/*
+ * Copyright (c) 2005-2014 Imperas Software Ltd., www.imperas.com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied.
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//                W R I T T E N   B Y   I M P E R A S   I G E N
+//
+//                             Version 20140731.0
+//                          Mon Aug  4 13:35:18 2014
+//
+////////////////////////////////////////////////////////////////////////////////
+
+#include "pse.igen.h"
+//////////////////////////////// Callback stubs ////////////////////////////////
+
+PPM_REG_READ_CB(ReadIER) {
+    // YOUR CODE HERE (ReadIER)
+    return *(Uns32*)user;
+}
+
+PPM_REG_READ_CB(ReadIPR) {
+    // YOUR CODE HERE (ReadIPR)
+    return *(Uns32*)user;
+}
+
+PPM_REG_READ_CB(ReadISR) {
+    // YOUR CODE HERE (ReadISR)
+    return *(Uns32*)user;
+}
+
+PPM_REG_READ_CB(ReadIVR) {
+    // YOUR CODE HERE (ReadIVR)
+    return *(Uns32*)user;
+}
+
+PPM_REG_READ_CB(ReadMER) {
+    // YOUR CODE HERE (ReadMER)
+    return *(Uns32*)user;
+}
+
+PPM_REG_WRITE_CB(WriteCIE) {
+    // YOUR CODE HERE (WriteCIE)
+    *(Uns32*)user = data;
+}
+
+PPM_REG_WRITE_CB(WriteIAR) {
+    // YOUR CODE HERE (WriteIAR)
+    *(Uns32*)user = data;
+}
+
+PPM_REG_WRITE_CB(WriteIER) {
+    // YOUR CODE HERE (WriteIER)
+    *(Uns32*)user = data;
+}
+
+PPM_REG_WRITE_CB(WriteISR) {
+    // YOUR CODE HERE (WriteISR)
+    *(Uns32*)user = data;
+}
+
+PPM_NET_CB(WriteIntr) {
+    // YOUR CODE HERE (WriteIntr)
+}
+
+PPM_REG_WRITE_CB(WriteMER) {
+    // YOUR CODE HERE (WriteMER)
+    *(Uns32*)user = data;
+}
+
+PPM_REG_WRITE_CB(WriteSIE) {
+    // YOUR CODE HERE (WriteSIE)
+    *(Uns32*)user = data;
+}
+
+PPM_CONSTRUCTOR_CB(constructor) {
+    // YOUR CODE HERE (pre constructor)
+    periphConstructor();
+    // YOUR CODE HERE (post constructor)
+}
+
+PPM_DESTRUCTOR_CB(destructor) {
+    // YOUR CODE HERE (destructor)
+}
+

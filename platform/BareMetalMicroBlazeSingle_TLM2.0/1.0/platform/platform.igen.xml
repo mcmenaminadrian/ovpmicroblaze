@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <hw enableintercepts="F"
+    library="platform"
+    name="BareMetalMicroBlazeSingle_TLM2.0"
+    stoponctrlc="F"
+    vendor="xilinx.ovpworld.org"
+    verbose="F"
+    version="1.0">
+    <documentation name="Description">Bare Metal Platform for an Xilinx MicroBlaze Processor using SystemC TLM2.0 as infrastructure.
+    The bare metal platform instantiates a single MicroBlaze processor instance.
+    
+    It creates two memories; program memory from 0x00000000 to 0x000FFFFF.
+                               stack memory from 0x00100000 to 0x001fffff.
+
+    The TLM2.0 platform can be passed any application compiled to an Xilinx MicroBlaze elf format as the first argument, an optional
+    second argument argument to specify the execution stop time.
+    
+    platform.OS.exe application.CROSS.elf [stop time milliseconds]
+    
+    Where OS is Linux or Windows.</documentation>
+    <documentation name="Licensing">Open Source Apache 2.0</documentation>
+    <processorinstance endian="big"
+        mips="100.000000"
+        name="cpu1">
+        <vlnvreference name="microblaze"
+            vendor="xilinx.ovpworld.org"/>
+        <extlibrary directLoad="T"
+            name="microblazeNewlib_0">
+            <vlnvreference name="microblazeNewlib"
+                vendor="xilinx.ovpworld.org"/>
+        </extlibrary>
+        <busmasterportconnection connection="bus1"
+            hiaddress="0xffffffff"
+            name="INSTRUCTION"/>
+        <busmasterportconnection connection="bus1"
+            hiaddress="0xffffffff"
+            name="DATA"/>
+    </processorinstance>
+    <bus addresswidth="32"
+        name="bus1"/>
+    <memoryinstance name="ram1">
+        <vlnvreference name="ram"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0xfffff"
+            loaddress="0x0"
+            name="sp1"/>
+    </memoryinstance>
+    <memoryinstance name="ram2">
+        <vlnvreference name="ram"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0x2fffff"
+            loaddress="0x100000"
+            name="sp1"/>
+    </memoryinstance>
+    <fileversion major="1"
+        minor="0"
+        name="_version_0"/>
+ </hw>

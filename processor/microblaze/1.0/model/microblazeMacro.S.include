@@ -1,0 +1,926 @@
+# Macro Assembler
+
+.macro add_TypeA1 rA rB rD
+    .word 0x00000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro addc_TypeA1 rA rB rD
+    .word 0x08000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro addi_TypeB1 rA rD simm
+    .word 0x20000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro addic_TypeB1 rA rD simm
+    .word 0x28000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro addik_TypeB1 rA rD simm
+    .word 0x30000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro addikc_TypeB1 rA rD simm
+    .word 0x38000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro addk_TypeA1 rA rB rD
+    .word 0x10000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro addkc_TypeA1 rA rB rD
+    .word 0x18000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro aget_TypeC1 FSLx rD
+    .word 0x6c000800 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro agetd_TypeC2 rB rD
+    .word 0x4c000040 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro and_TypeA1 rA rB rD
+    .word 0x84000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro andi_TypeB1 rA rD simm
+    .word 0xa4000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro andn_TypeA1 rA rB rD
+    .word 0x8c000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro andni_TypeB1 rA rD simm
+    .word 0xac000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro aput_TypeC3 FSLx rA
+    .word 0x6c008800 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro aputd_TypeC3d rA rB
+    .word 0x4c000440 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro beq_TypeA2 rA rB
+    .word 0x9c000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro beqd_TypeA2 rA rB
+    .word 0x9e000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro beqi_TypeB2 rA simm
+    .word 0xbc000000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro beqid_TypeB2 rA simm
+    .word 0xbe000000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro bge_TypeA2 rA rB
+    .word 0x9ca00000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro bged_TypeA2 rA rB
+    .word 0x9ea00000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro bgei_TypeB2 rA simm
+    .word 0xbca00000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro bgeid_TypeB2 rA simm
+    .word 0xbea00000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro bgt_TypeA2 rA rB
+    .word 0x9c800000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro bgtd_TypeA2 rA rB
+    .word 0x9e800000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro bgti_TypeB2 rA simm
+    .word 0xbc800000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro bgtid_TypeB2 rA simm
+    .word 0xbe800000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro ble_TypeA2 rA rB
+    .word 0x9c600000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro bled_TypeA2 rA rB
+    .word 0x9e600000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro blei_TypeB2 rA simm
+    .word 0xbc600000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro bleid_TypeB2 rA simm
+    .word 0xbe600000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro blt_TypeA2 rA rB
+    .word 0x9c400000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro bltd_TypeA2 rA rB
+    .word 0x9e400000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro blti_TypeB2 rA simm
+    .word 0xbc400000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro bltid_TypeB2 rA simm
+    .word 0xbe400000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro bne_TypeA2 rA rB
+    .word 0x9c200000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro bned_TypeA2 rA rB
+    .word 0x9e200000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro bnei_TypeB2 rA simm
+    .word 0xbc200000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro bneid_TypeB2 rA simm
+    .word 0xbe200000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro br_TypeA3 rB rD
+    .word 0x98000000 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro bra_TypeA3 rB rD
+    .word 0x98080000 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro brad_TypeA3 rB rD
+    .word 0x98180000 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro brai_TypeB3 rD simm
+    .word 0xb8080000 | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro braid_TypeB3 rD simm
+    .word 0xb8180000 | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro brald_TypeA4 rB rD
+    .word 0x981c0000 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro bralid_TypeB4 rD simm
+    .word 0xb81c0000 | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro brd_TypeA3 rB rD
+    .word 0x98100000 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro bri_TypeB3 rD simm
+    .word 0xb8000000 | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro brid_TypeB3 rD simm
+    .word 0xb8100000 | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro brk_TypeA5 rB rD
+    .word 0x980c0000 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro brki_TypeB5 rD simm
+    .word 0xb80c0000 | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro brld_TypeA4 rB rD
+    .word 0x98140000 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro brlid_TypeB4 rD simm
+    .word 0xb8140000 | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro bsll_TypeA6 rA rB rD
+    .word 0x44000400 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro bslli_TypeB6 rA rD uimm
+    .word 0x64000400 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\uimm&0x1f)<<0)
+.endm
+
+.macro bsra_TypeA6 rA rB rD
+    .word 0x44000200 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro bsrai_TypeB6 rA rD uimm
+    .word 0x64000200 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\uimm&0x1f)<<0)
+.endm
+
+.macro bsrl_TypeA6 rA rB rD
+    .word 0x44000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro bsrli_TypeB6 rA rD uimm
+    .word 0x64000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\uimm&0x1f)<<0)
+.endm
+
+.macro caget_TypeC1 FSLx rD
+    .word 0x6c002800 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro cagetd_TypeC2 rB rD
+    .word 0x4c000140 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro caput_TypeC3 FSLx rA
+    .word 0x6c00a800 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro caputd_TypeC3d rA rB
+    .word 0x4c000540 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro cget_TypeC1 FSLx rD
+    .word 0x6c002000 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro cgetd_TypeC2 rB rD
+    .word 0x4c000100 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro clz_TypeAb rA rD
+    .word 0x900000e0 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21)
+.endm
+
+.macro cmp_TypeA7 rA rB rD
+    .word 0x14000001 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro cmpu_TypeA7 rA rB rD
+    .word 0x14000003 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro cput_TypeC3 FSLx rA
+    .word 0x6c00a000 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro cputd_TypeC3d rA rB
+    .word 0x4c000500 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro eaget_TypeC1 FSLx rD
+    .word 0x6c000c00 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro eagetd_TypeC2 rB rD
+    .word 0x4c000060 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro ecaget_TypeC1 FSLx rD
+    .word 0x6c002c00 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro ecagetd_TypeC2 rB rD
+    .word 0x4c000160 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro ecget_TypeC1 FSLx rD
+    .word 0x6c002400 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro ecgetd_TypeC2 rB rD
+    .word 0x4c000120 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro eget_TypeC1 FSLx rD
+    .word 0x6c000400 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro egetd_TypeC2 rB rD
+    .word 0x4c000020 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro fadd_TypeA1 rA rB rD
+    .word 0x58000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro fcmpeq_TypeA1 rA rB rD
+    .word 0x58000220 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro fcmpge_TypeA1 rA rB rD
+    .word 0x58000260 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro fcmpgt_TypeA1 rA rB rD
+    .word 0x58000240 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro fcmple_TypeA1 rA rB rD
+    .word 0x58000230 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro fcmplt_TypeA1 rA rB rD
+    .word 0x58000210 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro fcmpne_TypeA1 rA rB rD
+    .word 0x58000250 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro fcmpun_TypeA1 rA rB rD
+    .word 0x58000200 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro fdiv_TypeA1 rA rB rD
+    .word 0x58000180 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro fint_TypeAb rA rD
+    .word 0x58000300 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21)
+.endm
+
+.macro flt_TypeAb rA rD
+    .word 0x58000280 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21)
+.endm
+
+.macro fmul_TypeA1 rA rB rD
+    .word 0x58000100 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro frsub_TypeA1 rA rB rD
+    .word 0x58000080 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro fsqrt_TypeAb rA rD
+    .word 0x58000380 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21)
+.endm
+
+.macro get_TypeC1 FSLx rD
+    .word 0x6c000000 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro getd_TypeC2 rB rD
+    .word 0x4c000000 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro idiv_TypeA7 rA rB rD
+    .word 0x48000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro idivu_TypeA7 rA rB rD
+    .word 0x48000002 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro imm_TypeI1 simmhi
+    .word 0xb0000000 | ((\simmhi&0xffffffff)<<0)
+.endm
+
+.macro lbu_TypeA8 rA rB rD
+    .word 0xc0000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro lbui_TypeB1 rA rD simm
+    .word 0xe0000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro lbur_TypeA8 rA rB rD
+    .word 0xc0000200 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro lhu_TypeA8 rA rB rD
+    .word 0xc4000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro lhui_TypeB1 rA rD simm
+    .word 0xe4000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro lhur_TypeA8 rA rB rD
+    .word 0xc4000200 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro lw_TypeA8 rA rB rD
+    .word 0xc8000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro lwi_TypeB1 rA rD simm
+    .word 0xe8000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro lwr_TypeA8 rA rB rD
+    .word 0xc8000200 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro lwx_TypeA1 rA rB rD
+    .word 0xc8000400 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro mbar_TypeB8 simm
+    .word 0xb8020004 | ((\simm&0x1f)<<21)
+.endm
+
+.macro mfs_TypeA9 rD rS
+    .word 0x94008000 | ((\rD&0x1f)<<21) | ((\rS&0x3fff)<<0)
+.endm
+
+.macro msrclr_TypeB9 rD uimm
+    .word 0x94110000 | ((\rD&0x1f)<<21) | ((\uimm&0x7fff)<<0)
+.endm
+
+.macro msrset_TypeB9 rD uimm
+    .word 0x94100000 | ((\rD&0x1f)<<21) | ((\uimm&0x7fff)<<0)
+.endm
+
+.macro mts_TypeAa rA rS
+    .word 0x9400c000 | ((\rA&0x1f)<<16) | ((\rS&0x3fff)<<0)
+.endm
+
+.macro mul_TypeA1 rA rB rD
+    .word 0x40000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro mulh_TypeA1 rA rB rD
+    .word 0x40000001 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro mulhsu_TypeA1 rA rB rD
+    .word 0x40000002 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro mulhu_TypeA1 rA rB rD
+    .word 0x40000003 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro muli_TypeB1 rA rD simm
+    .word 0x60000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro naget_TypeC1 FSLx rD
+    .word 0x6c004800 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro nagetd_TypeC2 rB rD
+    .word 0x4c000240 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro naput_TypeC3 FSLx rA
+    .word 0x6c00c800 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro naputd_TypeC3d rA rB
+    .word 0x4c000640 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro ncaget_TypeC1 FSLx rD
+    .word 0x6c006800 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro ncagetd_TypeC2 rB rD
+    .word 0x4c000340 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro ncaput_TypeC3 FSLx rA
+    .word 0x6c00e800 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro ncaputd_TypeC3d rA rB
+    .word 0x4c000740 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro ncget_TypeC1 FSLx rD
+    .word 0x6c006000 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro ncgetd_TypeC2 rB rD
+    .word 0x4c000300 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro ncput_TypeC3 FSLx rA
+    .word 0x6c00e000 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro ncputd_TypeC3d rA rB
+    .word 0x4c000700 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro neaget_TypeC1 FSLx rD
+    .word 0x6c004c00 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro neagetd_TypeC2 rB rD
+    .word 0x4c000260 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro necaget_TypeC1 FSLx rD
+    .word 0x6c006c00 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro necagetd_TypeC2 rB rD
+    .word 0x4c000360 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro necget_TypeC1 FSLx rD
+    .word 0x6c006400 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro necgetd_TypeC2 rB rD
+    .word 0x4c000320 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro neget_TypeC1 FSLx rD
+    .word 0x6c004400 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro negetd_TypeC2 rB rD
+    .word 0x4c000220 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro nget_TypeC1 FSLx rD
+    .word 0x6c004000 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro ngetd_TypeC2 rB rD
+    .word 0x4c000200 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro nop_TypeX
+    .word 0x80000000
+.endm
+
+.macro nput_TypeC3 FSLx rA
+    .word 0x6c00c000 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro nputd_TypeC3d rA rB
+    .word 0x4c000600 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro or_TypeA1 rA rB rD
+    .word 0x80000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro ori_TypeB1 rA rD simm
+    .word 0xa0000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro pcmpbf_TypeA1 rA rB rD
+    .word 0x80000400 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro pcmpeq_TypeA1 rA rB rD
+    .word 0x88000400 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro pcmpne_TypeA1 rA rB rD
+    .word 0x8c000400 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro put_TypeC3 FSLx rA
+    .word 0x6c008000 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro putd_TypeC3d rA rB
+    .word 0x4c000400 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro rsub_TypeA1 rA rB rD
+    .word 0x04000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro rsubc_TypeA1 rA rB rD
+    .word 0x0c000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro rsubi_TypeB1 rA rD simm
+    .word 0x24000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro rsubic_TypeB1 rA rD simm
+    .word 0x2c000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro rsubik_TypeB1 rA rD simm
+    .word 0x34000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro rsubikc_TypeB1 rA rD simm
+    .word 0x3c000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro rsubk_TypeA1 rA rB rD
+    .word 0x14000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro rsubkc_TypeA1 rA rB rD
+    .word 0x1c000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro rtbd_TypeBa rA simm
+    .word 0xb6400000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro rted_TypeBa rA simm
+    .word 0xb6800000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro rtid_TypeBa rA simm
+    .word 0xb6200000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro rtsd_TypeBa rA simm
+    .word 0xb6000000 | ((\rA&0x1f)<<16) | ((\simm&0xffff)<<0)
+.endm
+
+.macro sb_TypeA8 rA rB rD
+    .word 0xd0000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro sbi_TypeB1 rA rD simm
+    .word 0xf0000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro sbr_TypeA8 rA rB rD
+    .word 0xd0000200 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro sext16_TypeAb rA rD
+    .word 0x90000061 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21)
+.endm
+
+.macro sext8_TypeAb rA rD
+    .word 0x90000060 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21)
+.endm
+
+.macro sh_TypeA8 rA rB rD
+    .word 0xd4000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro shi_TypeB1 rA rD simm
+    .word 0xf4000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro shr_TypeA8 rA rB rD
+    .word 0xd4000200 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro sra_TypeAb rA rD
+    .word 0x90000001 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21)
+.endm
+
+.macro src_TypeAb rA rD
+    .word 0x90000021 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21)
+.endm
+
+.macro srl_TypeAb rA rD
+    .word 0x90000041 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21)
+.endm
+
+.macro sw_TypeA8 rA rB rD
+    .word 0xd8000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro swi_TypeB1 rA rD simm
+    .word 0xf8000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+
+.macro swr_TypeA8 rA rB rD
+    .word 0xd8000200 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro swx_TypeA1 rA rB rD
+    .word 0xd8000400 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro taget_TypeC1 FSLx rD
+    .word 0x6c001800 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tagetd_TypeC2 rB rD
+    .word 0x4c0000c0 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro taput_TypeC4 FSLx rA
+    .word 0x6c009800 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro taputd_TypeC4d rA rB
+    .word 0x4c0004c0 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro tcaget_TypeC1 FSLx rD
+    .word 0x6c003800 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tcagetd_TypeC2 rB rD
+    .word 0x4c0001c0 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tcaput_TypeC4 FSLx rA
+    .word 0x6c00b800 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro tcaputd_TypeC4d rA rB
+    .word 0x4c0005c0 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro tcget_TypeC1 FSLx rD
+    .word 0x6c003000 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tcgetd_TypeC2 rB rD
+    .word 0x4c000180 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tcput_TypeC4 FSLx rA
+    .word 0x6c00b000 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro tcputd_TypeC4d rA rB
+    .word 0x4c000580 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro teaget_TypeC1 FSLx rD
+    .word 0x6c001c00 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro teagetd_TypeC2 rB rD
+    .word 0x4c0000e0 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tecaget_TypeC1 FSLx rD
+    .word 0x6c003c00 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tecagetd_TypeC2 rB rD
+    .word 0x4c0001e0 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tecget_TypeC1 FSLx rD
+    .word 0x6c003400 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tecgetd_TypeC2 rB rD
+    .word 0x4c0001a0 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro teget_TypeC1 FSLx rD
+    .word 0x6c001400 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tegetd_TypeC2 rB rD
+    .word 0x4c0000a0 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tget_TypeC1 FSLx rD
+    .word 0x6c001000 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tgetd_TypeC2 rB rD
+    .word 0x4c000080 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tnaget_TypeC1 FSLx rD
+    .word 0x6c005800 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tnagetd_TypeC2 rB rD
+    .word 0x4c0002c0 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tnaput_TypeC4 FSLx rA
+    .word 0x6c00d800 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro tnaputd_TypeC4d rA rB
+    .word 0x4c0006c0 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro tncaget_TypeC1 FSLx rD
+    .word 0x6c007800 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tncagetd_TypeC2 rB rD
+    .word 0x4c0003c0 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tncaput_TypeC4 FSLx rA
+    .word 0x6c00f800 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro tncaputd_TypeC4d rA rB
+    .word 0x4c0007c0 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro tncget_TypeC1 FSLx rD
+    .word 0x6c007000 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tncgetd_TypeC2 rB rD
+    .word 0x4c000380 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tncput_TypeC4 FSLx rA
+    .word 0x6c00f000 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro tncputd_TypeC4d rA rB
+    .word 0x4c000780 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro tneaget_TypeC1 FSLx rD
+    .word 0x6c005c00 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tneagetd_TypeC2 rB rD
+    .word 0x4c0002e0 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tnecaget_TypeC1 FSLx rD
+    .word 0x6c007c00 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tnecagetd_TypeC2 rB rD
+    .word 0x4c0003e0 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tnecget_TypeC1 FSLx rD
+    .word 0x6c007400 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tnecgetd_TypeC2 rB rD
+    .word 0x4c0003a0 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tneget_TypeC1 FSLx rD
+    .word 0x6c005400 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tnegetd_TypeC2 rB rD
+    .word 0x4c0002a0 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tnget_TypeC1 FSLx rD
+    .word 0x6c005000 | ((\FSLx&0xf)<<0) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tngetd_TypeC2 rB rD
+    .word 0x4c000280 | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro tnput_TypeC4 FSLx rA
+    .word 0x6c00d000 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro tnputd_TypeC4d rA rB
+    .word 0x4c000680 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro tput_TypeC4 FSLx rA
+    .word 0x6c009000 | ((\FSLx&0xf)<<0) | ((\rA&0x1f)<<16)
+.endm
+
+.macro tputd_TypeC4d rA rB
+    .word 0x4c000480 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro wdc_TypeAc rA rB
+    .word 0x90000064 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro wdcclr_TypeAc rA rB
+    .word 0x90000066 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro wdcfl_TypeAc rA rB
+    .word 0x90000074 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro wic_TypeAc rA rB
+    .word 0x90000068 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11)
+.endm
+
+.macro xor_TypeA1 rA rB rD
+    .word 0x88000000 | ((\rA&0x1f)<<16) | ((\rB&0x1f)<<11) | ((\rD&0x1f)<<21)
+.endm
+
+.macro xori_TypeB1 rA rD simm
+    .word 0xa8000000 | ((\rA&0x1f)<<16) | ((\rD&0x1f)<<21) | ((\simm&0xffff)<<0)
+.endm
+

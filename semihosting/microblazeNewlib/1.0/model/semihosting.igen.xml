@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <semihostlibrary autoload="F"
+    imagefile="model"
+    library="semihosting"
+    name="microblazeNewlib"
+    vendor="xilinx.ovpworld.org"
+    version="1.0">
+    <documentation name="Description">Semihosting of newlib for microblace processors</documentation>
+    <documentation name="Licensing">Open Source Apache 2.0</documentation>
+    <supportedprocessor name="microblaze">
+        <vlnvreference library="processor"
+            name="microblaze"
+            vendor="xilinx.ovpworld.org"
+            version="1.0"/>
+    </supportedprocessor>
+    <fileversion major="1"
+        minor="0"
+        name="_version_0"/>
+ </semihostlibrary>

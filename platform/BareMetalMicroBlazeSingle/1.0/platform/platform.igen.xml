@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <hw enableintercepts="F"
+    library="platform"
+    name="BareMetalMicroBlazeSingle"
+    stoponctrlc="F"
+    vendor="xilinx.ovpworld.org"
+    verbose="F"
+    version="1.0">
+    <documentation name="Description">Bare Metal Platform for an MicroBlaze Processor.
+    The bare metal platform instantiates a single MicroBlaze processor instance. 
+    The processor operates using big and little endian data ordering.
+    It creates contiguous memory from 0x00000000 to 0xFFFFFFFF.
+    The ICM platform can be passed any application compiled to an MicroBlaze elf format as the first argument.
+    ./platform.exe application.elf</documentation>
+    <documentation name="Licensing">Open Source Apache 2.0</documentation>
+    <processorinstance endian="big"
+        mips="100.000000"
+        name="cpu1">
+        <vlnvreference name="microblaze"/>
+        <extlibrary directLoad="T"
+            name="microblazeNewlib_0">
+            <vlnvreference name="microblazeNewlib"/>
+        </extlibrary>
+        <busmasterportconnection connection="bus1"
+            hiaddress="0xffffffff"
+            name="INSTRUCTION"/>
+        <busmasterportconnection connection="bus1"
+            hiaddress="0xffffffff"
+            name="DATA"/>
+    </processorinstance>
+    <bus addresswidth="32"
+        name="bus1"/>
+    <memoryinstance name="memory">
+        <vlnvreference name="ram"/>
+        <busslaveportconnection connection="bus1"
+            hiaddress="0xffffffff"
+            loaddress="0x0"
+            name="sp1"/>
+    </memoryinstance>
+    <fileversion major="1"
+        minor="0"
+        name="_version_0"/>
+ </hw>

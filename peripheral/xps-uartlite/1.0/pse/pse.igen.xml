@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ <peripheral constructor="constructor"
+    destructor="destructor"
+    imagefile="pse.pse"
+    library="peripheral"
+    name="xps-uartlite"
+    vendor="xilinx.ovpworld.org"
+    version="1.0">
+    <documentation name="Licensing">Open Source Apache 2.0</documentation>
+    <formalattribute name="console"
+        type="bool">
+        <documentation name="Description">Standard Serial Socket Parameter: See OVP BHM and PPM API Function Reference: 
+			Automatic console</documentation>
+    </formalattribute>
+    <formalattribute name="portnum"
+        type="integer">
+        <documentation name="Description">Standard Serial Socket Parameter: See OVP BHM and PPM API Function Reference:  
+			 Specify port to open for a connection. 
+			 A value of zero causes the OS to select the next available port.</documentation>
+    </formalattribute>
+    <formalattribute name="infile"
+        type="string">
+        <documentation name="Description">Standard Serial Socket Parameter: See OVP BHM and PPM API Function Reference: 
+			 UART takes input from this serial input source file</documentation>
+    </formalattribute>
+    <formalattribute name="outfile"
+        type="string">
+        <documentation name="Description">Standard Serial Socket Parameter: See OVP BHM and PPM API Function Reference: 
+			 Serial output file</documentation>
+    </formalattribute>
+    <formalattribute name="portFile"
+        type="string">
+        <documentation name="Description">Standard Serial Socket Parameter: See OVP BHM and PPM API Function Reference: 
+			 When portnum is set to zero, write the assigned port number to this file</documentation>
+    </formalattribute>
+    <formalattribute name="log"
+        type="bool">
+        <documentation name="Description">Standard Serial Socket Parameter: See OVP BHM and PPM API Function Reference: 
+			 Report serial output in the simulator log</documentation>
+    </formalattribute>
+    <formalattribute name="finishOnDisconnect"
+        type="bool">
+        <documentation name="Description">Standard Serial Socket Parameter: See OVP BHM and PPM API Function Reference: 
+			 When defined the simulation will be terminated if the port is disconnected</documentation>
+    </formalattribute>
+    <busslaveport addresswidth="32"
+        mustbeconnected="T"
+        name="plb"
+        size="0x10">
+        <addressblock name="REG"
+            size="0x10"
+            width="32">
+            <memorymappedregister access="r"
+                isvolatile="T"
+                name="RxFifo"
+                readfunction="ReadRxFifo"
+                width="32">
+                <reset mask="4294967295"
+                    name="resetNet"/>
+            </memorymappedregister>
+            <memorymappedregister access="w"
+                isvolatile="T"
+                name="TxFifo"
+                offset="0x4"
+                width="32"
+                writefunction="WriteTxFifo">
+                <reset mask="4294967295"
+                    name="resetNet"/>
+            </memorymappedregister>
+            <memorymappedregister access="r"
+                isvolatile="T"
+                name="Stat"
+                offset="0x8"
+                readfunction="ReadStat"
+                width="32">
+                <reset mask="4294967295"
+                    name="resetNet"
+                    value="2"/>
+                <field name="RxFifoValidData"
+                    width="1"/>
+                <field bitoffset="1"
+                    name="RxFifoFull"
+                    width="1"/>
+                <field bitoffset="2"
+                    name="TxFifoEmpty"
+                    width="1"/>
+                <field bitoffset="3"
+                    name="TxFifoFull"
+                    width="1"/>
+                <field bitoffset="4"
+                    name="IntrEnabled"
+                    width="1"/>
+                <field bitoffset="5"
+                    name="OverrunError"
+                    width="1"/>
+                <field bitoffset="6"
+                    name="FrameError"
+                    width="1"/>
+                <field bitoffset="7"
+                    name="ParityError"
+                    width="1"/>
+            </memorymappedregister>
+            <memorymappedregister access="w"
+                isvolatile="T"
+                name="Ctrl"
+                offset="0xc"
+                width="32"
+                writefunction="WriteCtrl">
+                <reset mask="4294967295"
+                    name="resetNet"/>
+                <field name="RstTxFifo"
+                    width="1"/>
+                <field bitoffset="1"
+                    name="RstRxFifo"
+                    width="1"/>
+                <field bitoffset="4"
+                    name="EnableIntr"
+                    width="1"/>
+                <field bitoffset="2"
+                    name="__pad2"
+                    width="2"/>
+            </memorymappedregister>
+        </addressblock>
+    </busslaveport>
+    <netport name="Interrupt"
+        type="output"
+        updatefunctionargument="0"/>
+    <fileversion major="1"
+        minor="0"
+        name="_version_0"/>
+ </peripheral>

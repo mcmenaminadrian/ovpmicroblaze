@@ -73,7 +73,7 @@ icmProcessorP createPlatform(void) {
  
 
     const char *microblazeModel    = icmGetVlnvString(NULL, "xilinx.ovpworld.org", "processor",  "microblaze",        "1.0", "model");
-    const char *microblazeSemihost = icmGetVlnvString(NULL, "xilinx.ovpworld.org", "semihosting", "microblazeNewlib", "1.0", "model");
+    //const char *microblazeSemihost = icmGetVlnvString(NULL, "xilinx.ovpworld.org", "semihosting", "microblazeNewlib", "1.0", "model");
 
     // Create the processor instances
     icmProcessorP cpu1_c = icmNewProcessor(

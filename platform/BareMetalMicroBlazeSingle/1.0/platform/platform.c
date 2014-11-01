@@ -86,7 +86,8 @@ icmProcessorP createPlatform(void) {
         "modelAttrs",       // morpher attributes
         SIM_ATTRS,          // attributes
         cpu1_attr,          // user-defined attributes
-        microblazeSemihost, // semi-hosting file
+	0,		    // really bare metal
+      //  microblazeSemihost, // semi-hosting file
         "modelAttrs"        // semi-hosting attributes
     );
 

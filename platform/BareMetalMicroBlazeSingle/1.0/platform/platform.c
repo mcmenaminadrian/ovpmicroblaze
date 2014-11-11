@@ -30,8 +30,8 @@ static void parseArgs(int argc, char **argv);
 const char *usage = "<application name> [GDB port]";
 // Variables set by arguments
 char  *application;                    // the application to load
-Bool  enableDebug     = False;         // set True when debugging selected
-Bool  autoGDBConsole  = False;         // set True when auto start of GDB console selected
+Bool  enableDebug     = True;         // set True when debugging selected
+Bool  autoGDBConsole  = True;         // set True when auto start of GDB console selected
 Uns32 portNum         = 0;             // set to a port number for a debug connection
 
 icmProcessorP createPlatform(void) {
@@ -66,14 +66,16 @@ icmProcessorP createPlatform(void) {
     icmAddStringAttr(cpu1_attr, "endian", "big");
     icmAddDoubleAttr(cpu1_attr, "mips", 100.000000);
     icmAddStringAttr(cpu1_attr, "variant", "V8_20");
+    icmAddStringAttr(cpu1_attr, "C_PVR", "1");
     icmAddStringAttr(cpu1_attr, "C_USE_MMU", "3");
     icmAddStringAttr(cpu1_attr, "C_USE_BARREL", "1");
+    icmAddStringAttr(cpu1_attr, "C_USE_DIV", "1");
     icmAddStringAttr(cpu1_attr, "C_USE_INTERRUPT", "1");
     icmAddStringAttr(cpu1_attr, "C_RESET_MSR", "0x20");
  
 
     const char *microblazeModel    = icmGetVlnvString(NULL, "xilinx.ovpworld.org", "processor",  "microblaze",        "1.0", "model");
-    //const char *microblazeSemihost = icmGetVlnvString(NULL, "xilinx.ovpworld.org", "semihosting", "microblazeNewlib", "1.0", "model");
+//    const char *microblazeSemihost = icmGetVlnvString(NULL, "xilinx.ovpworld.org", "semihosting", "microblazeNewlib", "1.0", "model");
 
     // Create the processor instances
     icmProcessorP cpu1_c = icmNewProcessor(
@@ -87,7 +89,7 @@ icmProcessorP createPlatform(void) {
         SIM_ATTRS,          // attributes
         cpu1_attr,          // user-defined attributes
 	0,		    // really bare metal
-      //  microblazeSemihost, // semi-hosting file
+    //    microblazeSemihost, // semi-hosting file
         "modelAttrs"        // semi-hosting attributes
     );
 
@@ -115,9 +117,11 @@ int main(int argc, char *argv[]) {
 
     // the constructor
     icmProcessorP processor = createPlatform();
+    //debug
+    icmDebugThisProcessor(processor);
 
     // load the application executable file into processor memory space
-    if(!icmLoadProcessorMemory(processor, application, ICM_LOAD_DEFAULT, False, True)) {
+    if(!icmLoadProcessorMemory(processor, application, ICM_LOAD_PHYSICAL, True, True)) {
         return -1;
     }
 

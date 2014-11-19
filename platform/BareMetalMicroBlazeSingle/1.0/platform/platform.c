@@ -30,8 +30,8 @@ static void parseArgs(int argc, char **argv);
 const char *usage = "<application name> [GDB port]";
 // Variables set by arguments
 char  *application;                    // the application to load
-Bool  enableDebug     = True;         // set True when debugging selected
-Bool  autoGDBConsole  = True;         // set True when auto start of GDB console selected
+Bool  enableDebug     = False;         // set True when debugging selected
+Bool  autoGDBConsole  = False;         // set True when auto start of GDB console selected
 Uns32 portNum         = 0;             // set to a port number for a debug connection
 
 icmProcessorP createPlatform(void) {
@@ -66,16 +66,29 @@ icmProcessorP createPlatform(void) {
     icmAddStringAttr(cpu1_attr, "endian", "big");
     icmAddDoubleAttr(cpu1_attr, "mips", 100.000000);
     icmAddStringAttr(cpu1_attr, "variant", "V8_20");
-    icmAddStringAttr(cpu1_attr, "C_PVR", "1");
-    icmAddStringAttr(cpu1_attr, "C_USE_MMU", "3");
+    icmAddBoolAttr(cpu1_attr, "verbose", "true");
+    icmAddUns32Attr(cpu1_attr, "C_PVR", 2);
+    icmAddUns32Attr(cpu1_attr, "C_USE_MMU", 3);
     icmAddStringAttr(cpu1_attr, "C_USE_BARREL", "1");
     icmAddStringAttr(cpu1_attr, "C_USE_DIV", "1");
-    icmAddStringAttr(cpu1_attr, "C_USE_INTERRUPT", "1");
-    icmAddStringAttr(cpu1_attr, "C_RESET_MSR", "0x20");
+    icmAddUns32Attr(cpu1_attr, "C_USE_INTERRUPT", 1);
+    icmAddUns32Attr(cpu1_attr, "C_MMU_TLB_ACCESS", 3);
+    icmAddUns32Attr(cpu1_attr, "C_UNALIGNED_EXCEPTIONS", 1);
+    icmAddUns32Attr(cpu1_attr, "C_ILL_OPCODE_EXCEPTION", 1);
+    icmAddUns32Attr(cpu1_attr, "C_DIV_ZERO_EXCEPTION", 1);
+    icmAddUns32Attr(cpu1_attr, "C_OPCODE_0x0_ILLEGAL", 1);
+    icmAddUns32Attr(cpu1_attr, "C_DEBUG_ENABLED", 1);
+    icmAddUns32Attr(cpu1_attr, "C_D_LMB", 1);
+    icmAddUns32Attr(cpu1_attr, "C_I_LMB", 1);
+    icmAddUns32Attr(cpu1_attr, "C_MMU_DTLB_SIZE", 4);
+    icmAddUns32Attr(cpu1_attr, "C_MMU_ITLB_SIZE", 2);
+    icmAddUns32Attr(cpu1_attr, "C_MMU_ZONES", 16);
+
+
  
 
     const char *microblazeModel    = icmGetVlnvString(NULL, "xilinx.ovpworld.org", "processor",  "microblaze",        "1.0", "model");
-//    const char *microblazeSemihost = icmGetVlnvString(NULL, "xilinx.ovpworld.org", "semihosting", "microblazeNewlib", "1.0", "model");
+    //const char *microblazeSemihost = icmGetVlnvString(NULL, "xilinx.ovpworld.org", "semihosting", "microblazeNewlib", "1.0", "model");
 
     // Create the processor instances
     icmProcessorP cpu1_c = icmNewProcessor(
@@ -89,7 +102,7 @@ icmProcessorP createPlatform(void) {
         SIM_ATTRS,          // attributes
         cpu1_attr,          // user-defined attributes
 	0,		    // really bare metal
-    //    microblazeSemihost, // semi-hosting file
+       // microblazeSemihost, // semi-hosting file
         "modelAttrs"        // semi-hosting attributes
     );
 
@@ -153,7 +166,7 @@ static void parseArgs(int argc, char **argv)
 
     // check for debugging requirement
     if(argc==3){
-        enableDebug = True;
+        enableDebug = False;
         if (!strcmp(argv[2], "autoGDB"))
             autoGDBConsole = True;
         else

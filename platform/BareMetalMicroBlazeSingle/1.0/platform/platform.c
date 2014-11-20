@@ -59,7 +59,7 @@ icmProcessorP createPlatform(void) {
 ////////////////////////////////////////////////////////////////////////////////
 //                               Processor cpu1                               //
 ////////////////////////////////////////////////////////////////////////////////
-#define SIM_ATTRS (ICM_ATTR_DEFAULT)
+#define SIM_ATTRS (ICM_ATTR_DEFAULT|ICM_ATTR_SIMEX)
 
     icmAttrListP cpu1_attr = icmNewAttrList();
 

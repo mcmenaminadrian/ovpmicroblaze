@@ -55,7 +55,6 @@ icmProcessorP createPlatform(void) {
 
     icmBusP bus1_b = icmNewBus( "bus1_b", 32);
 
-
 ////////////////////////////////////////////////////////////////////////////////
 //                               Processor cpu1                               //
 ////////////////////////////////////////////////////////////////////////////////
@@ -114,9 +113,17 @@ icmProcessorP createPlatform(void) {
 //                                Memory memory                               //
 ////////////////////////////////////////////////////////////////////////////////
 
-    icmMemoryP memory_m = icmNewMemory("memory_m", 0x7, 0xffffffff);
+    	icmMemoryP memory_m1 = icmNewMemory("memory_m1", 0x7, 0xFFFFF);
+	icmMemoryP memory_m2 = icmNewMemory("pte_memory", 0x3, 0xFFF);
+	icmMemoryP memory_m3 = icmNewMemory("stack_memory", 0x3, 0xFFFF);
+	icmMemoryP memory_m4 = icmNewMemory("page_frames", 0x7, 0xFFFF); /* 64k of frames available at most */  
+	
+	//icmMemoryP memoryGlobal = icmNewMemory("memoryGlobal", 0x07, 0x7fffffff);
 
-    icmConnectMemoryToBus( bus1_b, "sp1", memory_m, 0x0);
+    	icmConnectMemoryToBus(bus1_b, "sp1", memory_m1, 0x0);
+	icmConnectMemoryToBus(bus1_b, "sp1", memory_m2, 0x1000000);
+	icmConnectMemoryToBus(bus1_b, "sp1", memory_m3, 0xFFFF0000);
+	icmConnectMemoryToBus(bus1_b, "sp1", memory_m4, 0x80000000);
 
     return cpu1_c;
 }

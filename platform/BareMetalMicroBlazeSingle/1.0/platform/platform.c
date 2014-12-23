@@ -83,12 +83,13 @@ icmProcessorP createPlatform(void) {
     icmAddUns32Attr(cpu1_attr, "C_MMU_DTLB_SIZE", 4);
     icmAddUns32Attr(cpu1_attr, "C_MMU_ITLB_SIZE", 2);
     icmAddUns32Attr(cpu1_attr, "C_MMU_ZONES", 16);
+    icmAddUns32Attr(cpu1_attr, "C_USE_STACK_PROTECTION", 1);
 
 
  
 
     const char *microblazeModel    = icmGetVlnvString(NULL, "xilinx.ovpworld.org", "processor",  "microblaze",        "1.0", "model");
-    //const char *microblazeSemihost = icmGetVlnvString(NULL, "xilinx.ovpworld.org", "semihosting", "microblazeNewlib", "1.0", "model");
+    const char *microblazeSemihost = icmGetVlnvString(NULL, "xilinx.ovpworld.org", "semihosting", "microblazeNewlib", "1.0", "model");
 
     // Create the processor instances
     icmProcessorP cpu1_c = icmNewProcessor(
@@ -101,8 +102,8 @@ icmProcessorP createPlatform(void) {
         "modelAttrs",       // morpher attributes
         SIM_ATTRS,          // attributes
         cpu1_attr,          // user-defined attributes
-	0,		    // really bare metal
-       // microblazeSemihost, // semi-hosting file
+	//0,		    // really bare metal
+       microblazeSemihost, // semi-hosting file
         "modelAttrs"        // semi-hosting attributes
     );
 
